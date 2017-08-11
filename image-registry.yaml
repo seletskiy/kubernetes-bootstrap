@@ -99,7 +99,7 @@ spec:
           persistentVolumeClaim:
             claimName: kube-image-registry-volume-claim
       nodeSelector:
-        image-registry: "true"
+        role: image-registry
 
 ---
 
@@ -139,3 +139,4 @@ spec:
               hostPort: 5000
               protocol: TCP
 
+# vim: ts=2 sts=2 sw=2

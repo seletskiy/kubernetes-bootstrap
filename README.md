@@ -16,8 +16,8 @@ Bootstrap provides:
 Main difference from other guides and tutorials is that provided installation
 supports `hostPort` option in `ports` mapping for `containers` (using `portmap`
 plugin), so it's possible to expose container's port to host system. Also,
-that kind of access is restricted to localhost only to prevent exposing
-internal application ports to internet.
+Docker Image Registry is protected by Calico Network Policy rule to
+exclude external access.
 
 # Requirements
 
@@ -44,6 +44,9 @@ Parameters:
 Initializes kubernetes master, Calico CNI and Docker Image Registry.
 
 Copy join token from command output to join additional nodes.
+
+Label one of your nodes with `role: image-registry` in order to allocate
+Docker Image Register node.
 
 Parameters:
 
