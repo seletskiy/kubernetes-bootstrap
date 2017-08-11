@@ -5,6 +5,7 @@
 	$(!ssh) "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -"
 	$(!ssh) "echo deb http://apt.kubernetes.io/ kubernetes-xenial main >> /etc/apt/sources.list.d/kubernetes.list"
 	$(!ssh) "apt-get update && apt-get install -y kubelet kubeadm docker.io"
+	$(!ssh) "curl -o /usr/local/bin/calicoctl https://www.projectcalico.org/builds/calicoctl && chmod +x /usr/local/bin/calicoctl"
 
 @@init:
 	$(call !check-var,host)
@@ -12,6 +13,7 @@
 	@$(!ssh) "kubeadm init --pod-network-cidr=192.168.0.0/16"
 	@$(!ssh) "cp -i /etc/kubernetes/admin.conf $$HOME/.kube/config"
 	@$(!ssh) <calico.yaml "kubectl apply -f -"
+	@$(!ssh) <image-registry-policy.yaml "ETCD_ENDPOINTS=http://10.96.232.136:6666 calicoctl apply -f -"
 	@$(!ssh) <image-registry.yaml "kubectl apply -f -"
 
 @@join:

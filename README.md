@@ -9,9 +9,9 @@ Bootstrap provides:
 * Kubernetes initialization via `kubeadm` with pods CIDR 192.168.0.0/16 (Calico
   CNI),
 * Calico CNI configuration with chained portmap plugin (requirement for
-  hostPort), hostPort is restricted to localhost only for each node for
-  security,
-* Docker Image Registry via DaemonSet on each node (`localhost:5000`).
+  hostPort);
+* Docker Image Registry via DaemonSet on each node (`localhost:5000`),
+  restricted to localhost for security (by Calico Policy Rules).
 
 Main difference from other guides and tutorials is that provided installation
 supports `hostPort` option in `ports` mapping for `containers` (using `portmap`

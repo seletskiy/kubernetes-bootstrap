@@ -4,6 +4,7 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: kube-image-registry-volume
+  namespace: kube-system
   labels:
     kubernetes.io/cluster-service: "true"
     storage: image-registry-volume

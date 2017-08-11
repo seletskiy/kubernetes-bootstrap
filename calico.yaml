@@ -39,7 +39,6 @@ data:
         {
           "type": "portmap",
           "snat": true,
-          "conditionsV4": ["-s", "127.0.0.1"],
           "capabilities": {"portMappings": true}
         }
       ]
@@ -158,7 +157,7 @@ spec:
         # container programs network policy and routes on each
         # host.
         - name: calico-node
-          image: quay.io/calico/node:v1.3.0
+          image: calico/node:v2.4.1
           env:
             # The location of the Calico etcd cluster.
             - name: ETCD_ENDPOINTS
@@ -207,7 +206,7 @@ spec:
         # This container installs the Calico CNI binaries
         # and CNI network config file on each node.
         - name: install-cni
-          image: quay.io/calico/cni:v1.9.1
+          image: calico/cni:v1.10.0
           command: ["/install-cni.sh"]
           env:
             # Name of the CNI config file to create.
@@ -287,7 +286,7 @@ spec:
       serviceAccountName: calico-policy-controller
       containers:
         - name: calico-policy-controller
-          image: quay.io/calico/kube-policy-controller:v0.6.0
+          image: calico/kube-policy-controller:v0.7.0
           env:
             # The location of the Calico etcd cluster.
             - name: ETCD_ENDPOINTS

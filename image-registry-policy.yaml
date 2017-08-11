@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: policy
+metadata:
+  name: restrict-access-to-image-registry
+spec:
+  order: 10
+  ingress:
+    - action: allow
+      source:
+        nets: [10.240.0.0/16, 192.168.0.0/16, 127.0.0.1/8]
+  egress:
+    - action: allow
+  selector: k8s-app == 'kube-image-registry-proxy' && calico/k8s_ns == 'kube-system'
+
+# vim: ts=2 sts=2 sw=2
