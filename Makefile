@@ -1,11 +1,11 @@
 @@install:
 	$(call !check-var,host)
 
-	$(!ssh) "apt-get update && apt-get install -y apt-transport-https"
-	$(!ssh) "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -"
-	$(!ssh) "echo deb http://apt.kubernetes.io/ kubernetes-xenial main >> /etc/apt/sources.list.d/kubernetes.list"
-	$(!ssh) "apt-get update && apt-get install -y kubelet kubeadm docker.io"
-	$(!ssh) "curl -o /usr/local/bin/calicoctl https://www.projectcalico.org/builds/calicoctl && chmod +x /usr/local/bin/calicoctl"
+	@$(!ssh) "apt-get update && apt-get install -y apt-transport-https"
+	@$(!ssh) "curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -"
+	@$(!ssh) "echo deb http://apt.kubernetes.io/ kubernetes-xenial main >> /etc/apt/sources.list.d/kubernetes.list"
+	@$(!ssh) "apt-get update && apt-get install -y kubelet kubeadm docker.io"
+	@$(!ssh) "curl -o /usr/local/bin/calicoctl https://www.projectcalico.org/builds/calicoctl && chmod +x /usr/local/bin/calicoctl"
 
 @@init:
 	$(call !check-var,host)
