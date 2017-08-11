@@ -43,6 +43,13 @@ Parameters:
 
 * `host` — target host.
 
+*NOTE*: to allocate image registry you need to label one of your nodes with
+`image-registry=true`:
+
+```
+kubectl label nodes <your-registry-node> image-registry=true
+```
+
 ## `make @@join`
 
 Joins target host to kubernetes master.
