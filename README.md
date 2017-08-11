@@ -23,7 +23,7 @@ Bootstrap provides:
 Commands starting with `@@` requires root login (or sudo) at target host.
 
 All required parameters should be specified as variables assignment in form
-of `make <var>=<value>... <command>
+of `make <var>=<value>... <command>`
 
 ## `make @@install`
 
