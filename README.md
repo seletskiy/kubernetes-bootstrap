@@ -13,6 +13,12 @@ Bootstrap provides:
   security,
 * Docker Image Registry via DaemonSet on each node (`localhost:5000`).
 
+Main difference from other guides and tutorials is that provided installation
+supports `hostPort` option in `ports` mapping for `containers` (using `hostmap`
+plugin), so it's possible to expose container's port to host system. Also,
+that kind of access is restricted to localhost only to prevent exposing
+internal application ports to internet.
+
 # Requirements
 
 * Ubuntu 16+,
