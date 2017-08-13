@@ -15,6 +15,7 @@
 	@$(!ssh) <calico.yaml "kubectl apply -f -"
 	@$(!ssh) <image-registry-policy.yaml "ETCD_ENDPOINTS=http://10.96.232.136:6666 calicoctl apply -f -"
 	@$(!ssh) <image-registry.yaml "kubectl apply -f -"
+	@$(!ssh) "kubeadm token list"
 
 @@join:
 	$(call !check-var,host)
