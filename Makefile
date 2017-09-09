@@ -11,10 +11,13 @@
 	$(call !check-var,host)
 
 	@$(!ssh) "kubeadm init --pod-network-cidr=192.168.0.0/16"
-	@$(!ssh) "cp -i /etc/kubernetes/admin.conf $$HOME/.kube/config"
-	@$(!ssh) <calico.yaml "kubectl apply -f -"
-	@$(!ssh) <image-registry-policy.yaml "ETCD_ENDPOINTS=http://10.96.232.136:6666 calicoctl apply -f -"
-	@$(!ssh) <image-registry.yaml "kubectl apply -f -"
+	@$(!ssh) "mkdir -p ~/.kube"
+	@$(!ssh) "cp /etc/kubernetes/admin.conf ~/.kube/config"
+	@$(!ssh) <$(make-dir)/calico.yaml "kubectl apply -f -"
+	@$(eval _etcd = http://10.96.232.136:6666)
+	@$(!ssh) sh -s <<< "while ! curl -s $(_etcd)/version; do :; done; echo"
+	@$(!ssh) <$(make-dir)/image-registry-policy.yaml "ETCD_ENDPOINTS=$(_etcd) echo calicoctl apply -f -"
+	@$(!ssh) <$(make-dir)/image-registry.yaml "kubectl apply -f -"
 	@$(!ssh) "kubectl cluster-info"
 	@$(!ssh) "kubeadm token list"
 
@@ -61,8 +64,9 @@
 
 kube-ca-dir = /etc/kubernetes/pki
 
-!ssh = ssh $(_ssh_flags) $(host) sudo
+make-dir = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
+!ssh = ssh -o StrictHostKeyChecking=no $(_ssh_flags) $(host) sudo
 !check-kubectl = $(call !check-binary,kubectl)
 
 define !check-var
